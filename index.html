@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Gamma Dashboard — QQQ → MNQ</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Gamma Dashboard — QQQ → MNQ</h1>
+      <div class="small">Live gamma flip, MNQ mapping, charts, alerts, full OI tables.</div>
+    </div>
+    <div class="small muted" style="margin-left:auto">Hosted static site</div>
+  </header>
+
+  <div class="controls card">
+    <input id="apiKey" placeholder="Polygon API Key" />
+    <input id="symbol" value="QQQ" />
+    <label class="small muted">Interval (s)</label>
+    <input id="interval" type="number" value="60" min="20" />
+    <label class="small muted">Top N walls</label>
+    <input id="topN" type="number" value="5" min="1" />
+    <input id="mnqScale" placeholder="MNQ scale (default 0.1)" />
+    <button id="startBtn" class="btn">Start</button>
+    <button id="stopBtn" class="btn" disabled>Stop</button>
+    <button id="exportBtn" class="btn export">Export CSV</button>
+    <button id="testAlert" class="btn">Test Alert</button>
+  </div>
+
+  <div class="card topline">
+    <div class="grid">
+      <div>
+        <h3>Gamma Flip (QQQ)</h3>
+        <div id="gammaFlip" class="muted">—</div>
+      </div>
+      <div>
+        <h3>Gamma Flip (MNQ)</h3>
+        <div id="gammaFlipMNQ" class="muted">—</div>
+      </div>
+      <div>
+        <h3>Underlying Price</h3>
+        <div id="underlyingPrice" class="muted">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="card">
+      <canvas id="gexChart" height="240"></canvas>
+    </div>
+    <div class="card">
+      <h4>OI Heatmap</h4>
+      <canvas id="oiBar" height="240"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Top Call Walls</h3>
+    <div id="callWalls" class="small muted">—</div>
+  </div>
+
+  <div class="card">
+    <h3>Top Put Walls</h3>
+    <div id="putWalls" class="small muted">—</div>
+  </div>
+
+  <div class="card">
+    <h3>All Strikes — Calls & Puts</h3>
+    <div class="tableWrap">
+      <table id="allTable">
+        <thead>
+          <tr>
+            <th>Strike</th>
+            <th>Call OI</th>
+            <th>Put OI</th>
+            <th>GEX</th>
+            <th>MNQ Strike</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="status small muted" id="status">Idle</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
